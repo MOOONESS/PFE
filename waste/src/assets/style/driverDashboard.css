@@ -1,0 +1,82 @@
+.dashboard-container1 {
+    display: flex;
+    margin:0;
+    padding:0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .complaints-list {
+    width: 11%;
+    background-color: #f8f9fa;
+    padding: 10px;
+    overflow: hidden;
+    border-right: 2px solid #ddd;
+  }
+  
+  .complaints-list h3 {
+    text-align: center;
+  }
+  .complaints-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .complaints-list li {
+    padding: 6px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .complaints-list li:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .map-container1 {
+    margin: 13px;
+    padding: 0;
+    width: 89%;
+    height: 110%;
+    position: relative;
+    border-radius: 5%;
+  }
+  
+  .geo-location-btn1 {
+    z-index: 1000;
+    padding: 5px;
+    position: absolute;
+    bottom: 20px;
+    left: 190px;
+    background: rgb(41, 50, 82);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .geo-location-btn1:hover {
+    background: #7c7c7c;
+  }
+
+
+
+.Logout1{
+  position:fixed;
+  left:42px;
+  top:520px;
+  padding:10px;
+  border-radius: 5px;
+  width:70px;
+}
+/* Hover Effect */
+.logout1:hover {
+  background: #0056b3; /* Darker blue on hover */
+  transform: translateY(-4px); /* Lift effect */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}

@@ -1,0 +1,146 @@
+/* AdminDashboard.css */
+button{
+    text-transform: capitalize;
+  }
+
+.dashboard-container {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row; /* Side by side layout for map and chart */
+    background-color: #f4f4f4;
+}
+
+.map-container { 
+    margin-left:5px;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    height: 89.5%;
+    width: 63%;  /* 70% width for the map */
+    padding: 5px;
+    background: rgb(233, 196, 196);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-right: 6px;
+}
+
+.right-section {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.map-content {
+    height: 100%;
+    width: 100%;
+}
+
+.stats-container {
+    margin-top: 20px;
+    height: 100%;  /* Ensure the chart container takes up full height */
+    width: 100%;    /* 30% width for the chart */
+    padding: 1px;
+    background: rgb(250, 96, 96);
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .map-container {
+        width: 100%;
+        height: 300px;
+    }
+
+    .right-section {
+        width: 100%;
+    }
+
+    .stats-container, .notification-container {
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+.select-truck {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.select-truck select {
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    border: 1px solid #1976d2;
+    outline: none;
+    cursor: pointer;
+}
+
+.select-truck select:focus {
+    border-color: #1976d2;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(75px); }
+    50% { transform: translateY(0); }
+}
+
+.bouncing-truck img {
+    animation: bounce 90s forwards;
+}
+
+.notification-container {
+    height: 100%;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    overflow-y: auto;
+}
+
+.notification-container h6 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.notification-item {
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+    border-left: 4px solid #1976d2;
+}
+
+.Logout2{
+    position:fixed;
+    left:800px;
+    top:593px;
+    padding:10px;
+    border-radius: 5px;
+    width:80px;
+  }
+  /* Hover Effect */
+  .logout2:hover {
+    background: #0056b3; /* Darker blue on hover */
+    transform: translateY(-4px); /* Lift effect */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+  }

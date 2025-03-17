@@ -1,0 +1,153 @@
+button{
+  text-transform: capitalize;
+}
+
+.dashboard-container0 {
+  display: flex; /* Use flexbox layout */
+  max-width: 1300px;
+  margin: 5px;
+  padding: 0 40px;
+  background-color: #faf8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Map Container */
+.map-container0 {
+  flex-grow: 2;
+  width :950px; /* Allow the map to take the available space */
+  padding: 1px;
+  border-radius: 7px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 6px;
+  margin-right: 30px;
+}
+
+/* Pie Chart Container */
+.pie-chart-container0 {
+  width: 300px; /* Set the width of the pie chart */
+  height: 300px; /* Set the height of the pie chart */
+  border-radius: 50%; /* Make it a circle */
+  margin-left: 30px; /* Space between map and pie chart */
+  margin-bottom:100px;
+ }
+/* Button Wrapper */
+.button-container0 {
+  border-radius: 50%;
+  display: flex; /* Use flexbox to manage button layout */
+  flex-direction: column; /* Stack buttons vertically */
+  position: fixed; /* Keep positioned if needed */
+  top: 520px; /* Set the top position as desired */
+  left: 50px; /* Set the left position as desired */
+  z-index:900;
+}
+.Logout0{
+  position:fixed;
+  left:1090px;
+  top:550px;
+  padding:10px;
+  border-radius: 5px;
+  width:80px;
+}
+/* Hover Effect */
+.logout0:hover {
+  background: #0056b3; /* Darker blue on hover */
+  transform: translateY(-4px); /* Lift effect */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}
+
+/* Button Styles */
+.geo-location-btn0,
+.post-complaint-btn0 {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  width:40px;
+  height:40px;
+  padding: 2px;
+  margin :2px; /* Increased padding for better touch area */
+  cursor: pointer;
+  z-index:1000;
+  transition: background-color 0.3s;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 1000px) {
+  .dashboard-container0 {
+    flex-direction: column; /* Stack elements on smaller screens */
+    padding: 10px;
+  }
+
+}
+/* Complaint Section */
+.complaint-section0 {
+  
+  background-color: white;
+  padding: 2em;
+  margin: 2em 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top:300px;
+}
+
+h2 {
+  margin-bottom: 1em;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+  padding: 0.5em;
+  border: 1px solid #ced4da;
+}
+
+/* Submit Complaint Button */
+.submit-complaint0 {
+  margin-top: 1em;
+  display: inline-block;
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    position: relative; /* Stack below content */
+  }
+} 
+
+.complaint-form_container0 {
+  margin-top: 400px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.complaint-description0 {
+  width: 80%;
+  height: 80px; /* Adjustable */
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+
+.submit-complaint-btn0:hover {
+  background-color: #0056b3;
+}
+h3{
+   font-size: '24px';
+   font-weight: 'bold';
+   color: red;
+   margin-left: 5px;
+
+}
+
+.container0{
+  margin-top:30px;
+}
+
