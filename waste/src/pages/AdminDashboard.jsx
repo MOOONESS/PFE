@@ -57,16 +57,38 @@ const AdminDashboard = () => {
     const [trucks, setTrucks] = useState([]);
 
     useEffect(() => {
-        fetchComplaints(); // Initial fetch of complaints
         fetchTrucks(); // Fetch trucks initially
     }, []);
 
 
-    const fetchComplaints = async () => {
-        const response = await fetch("http://localhost:8000/complaints");
-        const data = await response.json();
-        setComplaints(data);
-    };
+    useEffect(() => {
+        const eventSource = new EventSource("http://localhost:8000/complaints/");
+    
+        eventSource.addEventListener("initial", (event) => {
+          const data = JSON.parse(event.data);
+          setComplaints(data);
+          console.log("Initial complaints:", data);
+        });
+    
+        eventSource.addEventListener("update", (event) => {
+          const data = JSON.parse(event.data);
+          setComplaints(data);
+          console.log("Updated complaints:", data);
+        });
+    
+        eventSource.addEventListener("ping", () => {
+          console.log("Keep-alive ping received");
+        });
+    
+        eventSource.onerror = (err) => {
+          console.error("SSE error:", err);
+          eventSource.close();
+        };
+    
+        return () => {
+          eventSource.close();
+        };
+      }, []);
 
 
     const fetchTrucks = async () => {
@@ -137,7 +159,9 @@ const AdminDashboard = () => {
             {/* Map Section */}
             <Paper elevation={3} className="map-container">
                 <MapContainer center={[36.8065, 10.1815]} zoom={11} className="map-content">
-                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <TileLayer
+                    url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                />
                     
                     {/* Complaint Markers */}
                     {complaints.map((c) => (

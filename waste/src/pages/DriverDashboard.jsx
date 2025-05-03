@@ -211,7 +211,9 @@ const DriverDashboard = () => {
           ref={mapRef}
           style={{ height: "600px", width: "100%" }}
         >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          />
           
           {isLocationVisible && geolocation && (
             <Marker position={[geolocation.latitude, geolocation.longitude]} icon={glowingIcon} >

@@ -288,31 +288,99 @@ def get_complaints_by_citizen(citizen_id: int, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/complaints/", response_model=List[ComplaintResponse])
-def get_complaints(db: Session = Depends(get_db)):
-    try:
-        query = text("""
-            SELECT id, description, latitude, longitude, citizen_id, status
-            FROM complaints
-        """)
+# @app.get("/complaints/", response_model=List[ComplaintResponse])
+# def get_complaints(db: Session = Depends(get_db)):
+#     try:
+#         query = text("""
+#             SELECT id, description, latitude, longitude, citizen_id, status
+#             FROM complaints
+#         """)
 
-        result = db.execute(query)
-        complaints = [{
-            "id": row.id,
-            "description": row.description,
-            "latitude": row.latitude,
-            "longitude": row.longitude,
-            "citizen_id": row.citizen_id,
-            "status": row.status
-        } for row in result]
+#         result = db.execute(query)
+#         complaints = [{
+#             "id": row.id,
+#             "description": row.description,
+#             "latitude": row.latitude,
+#             "longitude": row.longitude,
+#             "citizen_id": row.citizen_id,
+#             "status": row.status
+#         } for row in result]
 
-        if not complaints:
-            raise HTTPException(status_code=404, detail="No complaints found")
+#         if not complaints:
+#             raise HTTPException(status_code=404, detail="No complaints found")
 
-        return complaints
+#         return complaints
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=str(e))
+
+
+
+DATABASE_URL = "postgresql://postgres:13644107@localhost/waste"
+
+import asyncio
+import json
+import asyncpg
+import datetime
+from fastapi import Request
+from sse_starlette.sse import EventSourceResponse
+
+
+# Serialize datetime objects to ISO strings
+def serialize_row(row):
+    serialized = {}
+    for key, value in row.items():
+        if isinstance(value, (datetime.datetime, datetime.date)):
+            serialized[key] = value.isoformat()
+        else:
+            serialized[key] = value
+    return serialized
+
+@app.get("/complaints/")
+async def stream_complaints(request: Request):
+    queue = asyncio.Queue()
+
+    async def pg_listener(connection, pid, channel, payload):
+        await queue.put(payload)
+
+    async def event_generator():
+        conn = await asyncpg.connect(DATABASE_URL)
+        await conn.add_listener("complaints_channel", pg_listener)
+
+        # 🔥 Send initial complaints
+        rows = await conn.fetch("SELECT * FROM complaints")
+        complaints = [serialize_row(dict(row)) for row in rows]
+        yield {
+            "event": "initial",
+            "data": json.dumps(complaints)
+        }
+
+        try:
+            while True:
+                if await request.is_disconnected():
+                    break
+
+                try:
+                    # Wait for NOTIFY signal
+                    await asyncio.wait_for(queue.get(), timeout=30.0)
+                    rows = await conn.fetch("SELECT * FROM complaints")
+                    complaints = [serialize_row(dict(row)) for row in rows]
+
+                    yield {
+                        "event": "update",
+                        "data": json.dumps(complaints)
+                    }
+
+                except asyncio.TimeoutError:
+                    # Keep-alive ping
+                    yield {"event": "ping", "data": "keep-alive"}
+
+        finally:
+            await conn.remove_listener("complaints_channel", pg_listener)
+            await conn.close()
+
+    return EventSourceResponse(event_generator())
+
 
 
 

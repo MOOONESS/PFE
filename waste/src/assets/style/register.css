@@ -2,6 +2,7 @@
   
   /* Container for centering the form */
   .flex {
+    background: url('../register.jpg') center/cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +24,7 @@
   }
   
   .text-gray-700 {
-    color: #4a5568; /* Dark gray text */
+    color: #000000; /* Dark gray text */
   }
   
   .mb-6 {
